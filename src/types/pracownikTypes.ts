@@ -10,8 +10,14 @@ export type Powod = (string | number)[];
 
 export type Stanowisko = "szef" | "anetka" | "pani basia" | "podbutnik";
 
+export type WiekPsa = {
+    wLudzkich: number;
+    wPsich: number;
+    mentalnie: number;
+};
+
 export type Pracownik = {
-    id?: number;
+    id: number;
     imie: string;
     nazwisko: string;
     stanowisko: Stanowisko;
@@ -25,3 +31,9 @@ export type PaniBasia = Pracownik & {
     graNaSkrzypcach: string;
     bezNiejTenZakładUpadnie: boolean;
 };
+
+export type Pies = Pracownik & {
+    rasa: string;
+    wiek: WiekPsa;
+    nienawidzi: string[];
+}
