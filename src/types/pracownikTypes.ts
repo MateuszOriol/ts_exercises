@@ -6,15 +6,19 @@ export enum Waluta {
   
 export type Pensja = [number, Waluta];
 
+export type Powod = (string | number)[];
+
+export type Stanowisko = "szef" | "anetka" | "pani basia" | "podbutnik";
+
 export type Pracownik = {
-    id: number;
+    id?: number;
     imie: string;
     nazwisko: string;
-    stanowisko: "szef" | "anetka" | "pani basia" | "podbutnik";
+    stanowisko: Stanowisko;
     pseudonim: string;
     opis?: string;
     pensja: Pensja;
-    zwolnij?: (...powody: (string | number)[]) => void;
+    zwolnij?: (...powody: Powod) => void;
 };
 
 export type PaniBasia = Pracownik & {

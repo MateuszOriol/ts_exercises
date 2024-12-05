@@ -8,9 +8,7 @@ export type RaportPracownika = Raport & {
     spadekPensji: number;
 };
 
-export type RaportPracowników = {
-    [id: number]: RaportPracownika;
-};
+export type RaportPracowników = Record<number, RaportPracownika>;
 
 export type RaportPieseczka = Raport & {
     szczekanie: true;

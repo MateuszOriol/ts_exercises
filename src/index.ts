@@ -1,7 +1,7 @@
 import { dodajNowegoPracownika, dodajPracownika, dodajPracownikówZListy, zwolnijPracownika } from "./pracownicy.js";
 import { generujRaport } from "./raporty.js";
 import { Pracownik, PaniBasia, Waluta } from "./types/pracownikTypes.js";
-import { RaportPracownika } from "./types/raportTypes.js";
+import { RaportPracownika, RaportPracowników, RaportPieseczka} from "./types/raportTypes.js";
 
 export const listaPracowników: Pracownik[] = [];
 
@@ -30,8 +30,8 @@ const uruchomDzieńPracy = async () => {
     const raportPracowników = await generujRaport({
         0: efektyPracy,
         1: efektyPracy
-    }, 0, "brak");
-    const raportPieseczka = await generujRaport({szczekanie: true, isPies: true, aKtoToJestTakimSłodkimPieseczkiem: true}, 0, "brak");
+    }, 0, "brak") as RaportPracowników;
+    const raportPieseczka = await generujRaport({szczekanie: true, isPies: true, aKtoToJestTakimSłodkimPieseczkiem: true}, 0, "brak") as RaportPieseczka;
 
     if(raportPieseczka.isPies){
         console.log("Dobra psinka!");

@@ -1,20 +1,26 @@
 import pracownicy from '../dane/pracownicy.json' assert { type: "json" };
 import { listaPracowników } from "./index.js";
-import { Pracownik } from "./types/pracownikTypes.js";
+import { Pracownik, Stanowisko, Waluta} from "./types/pracownikTypes.js";
 
 
 
 export const dodajPracownikówZListy = () => {
     pracownicy.forEach((pracownik) => {
         const nowyPracownik: Pracownik = {
-            ...pracownik,
+            id: pracownik.id,
+            imie: pracownik.imie,
+            nazwisko: pracownik.nazwisko ?? "Nieznane",
+            stanowisko: (pracownik.stanowisko as Stanowisko),
+            pseudonim: pracownik.pseudonim ?? "Brak",
+            opis: pracownik.opis ?? "",
+            pensja: (pracownik.pensja as [number, Waluta]) ?? [0, Waluta.Złoty_Polski_Peelen],
             zwolnij: zwolnijGo
         };
         dodajPracownika(nowyPracownik);
     });
-}
+};
 
-export const dodajNowegoPracownika = (imie: string, nazwisko: string, stanowisko: "szef" | "anetka" | "pani basia" | "podbutnik", pensja: [number, number], zwolnij?: (...powody: (string | number)[]) => void) => {
+export const dodajNowegoPracownika = (imie: string, nazwisko: string, stanowisko: Stanowisko, pensja: [number, number], zwolnij?: (...powody: (string | number)[]) => void) => {
     listaPracowników.push({
         id: listaPracowników.length + 1,
         imie,
@@ -29,10 +35,11 @@ export const dodajPracownika = (pracownik: Pracownik) => {
     listaPracowników.push(pracownik);
 }
 
-export const zwolnijPracownika = (id:number, powód: Powod) => {
-    const pracownik = listaPracowników.find(pracownik => pracownik.id === id);
-    if (pracownik) {
-            pracownik.zwolnij(powód);
+export const zwolnijPracownika = (id: number, powód?: string | number) => {
+    const pracownik = listaPracowników
+    .find(pracownik => pracownik.id === id);
+    if (pracownik && pracownik.zwolnij && powód) {
+            pracownik.zwolnij(powód)
     }
 }
 
